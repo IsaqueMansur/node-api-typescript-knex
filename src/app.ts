@@ -1,14 +1,9 @@
-// app.ts
-
-import dotenv from 'dotenv';
-import { resolve } from 'path';
-import express from 'express';
-import { useExpressServer } from 'routing-controllers';
-import "reflect-metadata"
-
+import dotenv from "dotenv";
+import { resolve } from "path";
+import express from "express";
+import { useExpressServer } from "routing-controllers";
+import "reflect-metadata";
 dotenv.config();
-
-import { UserController } from './src/controllers/UsersController';
 
 class App {
   public app: express.Application;
@@ -22,12 +17,12 @@ class App {
   middlewares() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
-    this.app.use(express.static(resolve(__dirname, 'uploads', 'images')));
+    this.app.use(express.static(resolve(__dirname, "uploads", "images")));
   }
 
   setupControllers() {
     useExpressServer(this.app, {
-      controllers: [UserController],
+      controllers: [__dirname + "/controllers/*.{ts,js}"],
     });
   }
 }
